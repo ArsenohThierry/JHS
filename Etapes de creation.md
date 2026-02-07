@@ -63,3 +63,82 @@ PART 4 : multi-thrading
 
     -ajout d'une boucle while pour ne pas arreter l ecoute :
     MAIS : meme si le programme ne finit pas , le serveur n' accepte qu' une requete a la fois (pas du tout optimal)
+
+    => Ajout de HttpConnectionWorkerThread.java : 
+
+    ServerListenerThread.java ne fait qu'accepter les connections pour avoir un socket particulier 
+
+    puis on le passe a "un nouveau" HttpConnectionWorkerThread.java qui lui va gerer les messages , retourner les reponses ,pages , ... bref le job de tout a l'heure en mono-thread
+    => a chaque connection , on envoie a un nouveau HttpConnectionWorkerThread => plusieurs theads peuxt fonctionner en meme temps : <Multi-threading> 
+    
+    !OK!
+    Juste il faut fermer les scoket a la fin ! et c'est ok
+
+
+    Partie 5 : implementation du protocole http
+
+    Le protocole http est defini par des RFC deja implementes par le createur des http protocol , html ,... Documentaion necessaire ,...
+    Mais on utilisera que RFC7230 : HTTP/1.1 (Message syntax and routing)
+
+    RFC7231 : HTTP/1.1 (Semantics and contexts)
+
+    Depuis les documentations : 
+    Format des messages :
+    -Encodage : USASCII
+    
+    -HTTP-message = start-line
+    *< header-field CRLF >
+    CRLF
+    [ message-body ]
+
+    EXPLICATION CHAT (resume de comment fonctionne les message de requetes http ):
+    Entre 3:26 et 7:14, la vidéo explique comment analyser et structurer une requête HTTP reçue par un serveur Java, en s’appuyant sur les RFC officielles du protocole HTTP.​​
+
+1. Ce que le serveur reçoit
+À partir de 3:26, l’auteur montre comment récupérer la requête brute envoyée par le navigateur (via l’InputStream du socket) et l’afficher caractère par caractère.​
+Il copie ensuite cette requête dans un fichier texte (request.txt) pour l’utiliser comme exemple concret de requête HTTP à parser plus tard.​
+
+2. Vue d’ensemble du format HTTP (RFC 7230)
+À partir de 4:00 environ, il ouvre la RFC 7230 et explique la structure générale d’un message HTTP :
+
+un start line (ligne de départ),
+
+zéro ou plusieurs champs d’en‑tête (header fields),
+
+un body optionnel.​
+
+Il insiste sur le fait que le body n’est pas obligatoire et que la séparation entre les en‑têtes et le body se fait via un saut de ligne spécial (CRLF).​
+
+3. Découpage de la ligne de requête
+Vers 5:00–6:00, il se concentre sur la request line (la première ligne de la requête), qui est définie ainsi dans la RFC :
+
+M
+e
+ˊ
+thode
+  
+espace
+  
+Request‑target
+  
+espace
+  
+HTTP‑version
+  
+CRLF
+M 
+e
+ˊ
+ thodeespaceRequest‑targetespaceHTTP‑versionCRLF
+Il montre que la méthode est un token (par exemple GET, POST, etc.) et qu’elle doit être en majuscules par convention, et que si la méthode n’est pas reconnue, le serveur doit répondre par un code 501 Not Implemented.​
+
+4. Choix de la stratégie de parsing
+Vers 6:30–7:14, il explique qu’il va implémenter un parser « scanner‑less » (sans tokenizer) :
+
+au lieu de découper d’abord tout le flux en tokens, le parser lit les caractères au fur et à mesure,
+
+cela permet de détecter rapidement les requêtes mal formées ou malveillantes et de fermer la connexion si besoin.​
+
+Il termine cette plage en préparant le terrain pour la suite : il crée un package http, une classe HttpParser et une méthode parseHttpRequest(InputStream), puis met en place un test JUnit pour tester le parser avec la requête exemple.​
+
+Si tu veux, je peux te détailler ligne par ligne ce que fait le code entre 6:30 et 7:14 (création de la classe, du test, du ByteArrayInputStream, etc.).
