@@ -6,7 +6,6 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,7 +33,7 @@ public class HttpParserTest {
     public void testParseBadHttpRequest() {
         HttpRequest httpRequest = null;
         try {
-            httpRequest = httpParser.parseHttpRequest(generatebadtestCaseMethodName());
+            httpRequest = httpParser.parseHttpRequest(generateBadTestCaseMethodName());
             fail();
         } catch (HttpParsingException e) {
             assertEquals(e.getErrorCode(), HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
@@ -46,38 +45,48 @@ public class HttpParserTest {
     public void testParseBadLongMethod() {
         HttpRequest httpRequest = null;
         try {
-            httpRequest = httpParser.parseHttpRequest(generatebadtestCaseMethodLength());
+            httpRequest = httpParser.parseHttpRequest(generateBadTestCaseMethodLength());
             fail();
         } catch (HttpParsingException e) {
             assertEquals(e.getErrorCode(), HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
         }
 
-    } 
+    }
 
     @Test
     public void testParseBadLongRequest() {
         HttpRequest httpRequest = null;
         try {
-            httpRequest = httpParser.parseHttpRequest(generatebadtestCaseRequestLength());
+            httpRequest = httpParser.parseHttpRequest(generateBadTestCaseRequestLength());
             fail();
         } catch (HttpParsingException e) {
             assertEquals(e.getErrorCode(), HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
         }
 
-    } 
+    }
 
     @Test
     public void testParseBadEmptyRequest() {
         HttpRequest httpRequest = null;
         try {
-            httpRequest = httpParser.parseHttpRequest(generatebadtestEmptyRequest());
+            httpRequest = httpParser.parseHttpRequest(generateBadTestEmptyRequest());
             fail();
         } catch (HttpParsingException e) {
             assertEquals(e.getErrorCode(), HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
         }
 
-    } 
+    }
 
+        public void testParseBadRequestOnlyCRnoLF() {
+        HttpRequest httpRequest = null;
+        try {
+            httpRequest = httpParser.parseHttpRequest(generateBadTestRequestOnlyCRnoLF());
+            fail();
+        } catch (HttpParsingException e) {
+            assertEquals(e.getErrorCode(), HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+        }
+
+    }
 
 
     private InputStream generateValidGETtestCase() {
@@ -108,7 +117,7 @@ public class HttpParserTest {
         return inputStream;
     }
 
-    private InputStream generatebadtestCaseMethodName() {
+    private InputStream generateBadTestCaseMethodName() {
         String rawData = "GeT / HTTP/1.1\r\n" + //
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
@@ -119,7 +128,7 @@ public class HttpParserTest {
         return inputStream;
     }
 
-    private InputStream generatebadtestCaseMethodLength() {
+    private InputStream generateBadTestCaseMethodLength() {
         String rawData = "GETTTTTTT / HTTP/1.1\r\n" + //
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
@@ -130,7 +139,7 @@ public class HttpParserTest {
         return inputStream;
     }
 
-    private InputStream generatebadtestCaseRequestLength() {
+    private InputStream generateBadTestCaseRequestLength() {
         String rawData = "GET / AAAAA HTTP/1.1\r\n" + //
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
@@ -141,7 +150,7 @@ public class HttpParserTest {
         return inputStream;
     }
 
-    private InputStream generatebadtestEmptyRequest() {
+    private InputStream generateBadTestEmptyRequest() {
         String rawData = "\r\n" + //
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
@@ -152,8 +161,8 @@ public class HttpParserTest {
         return inputStream;
     }
 
-        private InputStream generatebadtestRequestOnlyCRnoLF() {
-        String rawData = "GET / AAAAA HTTP/1.1\r" + //
+    private InputStream generateBadTestRequestOnlyCRnoLF() {
+        String rawData = "GET / AAAAA HTTP/1.1\r" + // pas de \n
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
                 "\r\n\r\n";
