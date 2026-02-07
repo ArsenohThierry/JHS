@@ -1,4 +1,4 @@
-package com.jhs.http.config;
+package com.jhs.httpserver.config;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.jhs.http.utils.Json;
+import com.jhs.httpserver.utils.Json;
 
 /*
 * Cette classe va etre un singleton car on n'a besoin que d'une seule instance de 
@@ -33,29 +33,14 @@ public class ConfigurationManager {
      * http.json
      */
     public void loadConfiguration(String filePath) {
-        FileReader filereader = null;
-        try {
-            filereader = new FileReader(filePath);
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new HttpConfigurationException("Fichier de configuration introuvable : " + filePath, e);
-        }
-        finally{
-            if (filereader != null) {
-                try {
-                    filereader.close();
-                } catch (IOException e) {
-                    throw new HttpConfigurationException("Erreur lors de la fermeture du fichier de configuration", e);
-                }
-            }
-        }
-        
         StringBuilder stringbuilder = new StringBuilder();
-        int i = 0;
-        try {
+        try (FileReader filereader = new FileReader(filePath)) {
+            int i;
             while ((i = filereader.read()) != -1) {
                 stringbuilder.append((char) i);
             }
+        } catch (FileNotFoundException e) {
+            throw new HttpConfigurationException("Fichier de configuration introuvable : " + filePath, e);
         } catch (IOException e) {
             throw new HttpConfigurationException(e);
         }

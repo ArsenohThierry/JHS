@@ -197,8 +197,10 @@ Maintenant on a besoin de parser ces messages pour pouvoir les comprendre et les
                         -Avantage : plus rapide pour les requetes mal formées ou malveillantes (car on peut detecter l erreur rapidement et fermer la connexion)
                         -Inconvenient : plus lent pour les requetes bien formées (car on doit lire les caracteres un par un 
 
-Par convention , on utilise la methode 2 : lexerless parser (scannerless parser) pour pouvoir detecter rapidement les requetes mal formées ou malveillantes et fermer la connexion si besoin
+    Par convention , on utilise la methode 2 : lexerless parser (scannerless parser) pour pouvoir detecter rapidement les requetes mal formées ou malveillantes et fermer la connexion si besoin
 
---->
-Ajout d'une nouvelle dependance : JUnit pour les tests unitaires : 
-    -Creation de HttpParserTest.java : test JUnit pour tester le parser avec la requete exemple (request.txt)
+    --->
+    Ajout d'une nouvelle dependance : JUnit pour les tests unitaires : 
+        -Creation de HttpParserTest.java : test JUnit pour tester le parser avec la requete exemple (request.txt)
+
+Partie 6 :

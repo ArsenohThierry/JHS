@@ -1,6 +1,8 @@
-com/jhs/http/HttpServer.class
-com/jhs/http/config/HttpConfigurationException.class
-com/jhs/http/config/ConfigurationManager.class
-com/jhs/http/utils/Json.class
-com/jhs/http/core/ServerListenerThread.class
-com/jhs/http/config/Configuration.class
+com/jhs/httpserver/core/HttpConnectionWorkerThread.class
+com/jhs/httpserver/config/Configuration.class
+com/jhs/httpserver/config/HttpConfigurationException.class
+com/jhs/httpserver/core/ServerListenerThread.class
+com/jhs/http/HttpParser.class
+com/jhs/httpserver/utils/Json.class
+com/jhs/httpserver/config/ConfigurationManager.class
+com/jhs/httpserver/HttpServer.class

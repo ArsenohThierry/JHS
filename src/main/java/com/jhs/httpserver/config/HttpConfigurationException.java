@@ -1,4 +1,4 @@
-package com.jhs.http.config;
+package com.jhs.httpserver.config;
 
 public class HttpConfigurationException extends RuntimeException {
 

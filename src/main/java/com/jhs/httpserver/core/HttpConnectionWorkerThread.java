@@ -1,4 +1,4 @@
-package com.jhs.http.core;
+package com.jhs.httpserver.core;
 
 import java.io.IOException;
 import java.io.InputStream;

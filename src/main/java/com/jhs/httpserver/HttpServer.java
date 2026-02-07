@@ -1,11 +1,13 @@
-package com.jhs.http;
+package com.jhs.httpserver;
 
 import java.io.IOException;
 
-import org.slf4j.*;
-import com.jhs.http.config.Configuration;
-import com.jhs.http.config.ConfigurationManager;
-import com.jhs.http.core.ServerListenerThread;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.jhs.httpserver.config.Configuration;
+import com.jhs.httpserver.config.ConfigurationManager;
+import com.jhs.httpserver.core.ServerListenerThread;
 
 /*
 *   Driver pour le serveur HTTP

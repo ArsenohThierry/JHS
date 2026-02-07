@@ -1,4 +1,4 @@
-package com.jhs.http.utils;
+package com.jhs.httpserver.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
