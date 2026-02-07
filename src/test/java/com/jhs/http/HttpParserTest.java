@@ -66,6 +66,18 @@ public class HttpParserTest {
 
     } 
 
+    @Test
+    public void testParseBadEmptyRequest() {
+        HttpRequest httpRequest = null;
+        try {
+            httpRequest = httpParser.parseHttpRequest(generatebadtestEmptyRequest());
+            fail();
+        } catch (HttpParsingException e) {
+            assertEquals(e.getErrorCode(), HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+        }
+
+    } 
+
 
 
     private InputStream generateValidGETtestCase() {
@@ -128,4 +140,27 @@ public class HttpParserTest {
                         StandardCharsets.US_ASCII));
         return inputStream;
     }
+
+    private InputStream generatebadtestEmptyRequest() {
+        String rawData = "\r\n" + //
+                "Host: localhost:8080\r\n" + //
+                "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
+                "\r\n\r\n";
+        InputStream inputStream = new ByteArrayInputStream(
+                rawData.getBytes(
+                        StandardCharsets.US_ASCII));
+        return inputStream;
+    }
+
+        private InputStream generatebadtestRequestOnlyCRnoLF() {
+        String rawData = "GET / AAAAA HTTP/1.1\r" + //
+                "Host: localhost:8080\r\n" + //
+                "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
+                "\r\n\r\n";
+        InputStream inputStream = new ByteArrayInputStream(
+                rawData.getBytes(
+                        StandardCharsets.US_ASCII));
+        return inputStream;
+    }
+
 }
