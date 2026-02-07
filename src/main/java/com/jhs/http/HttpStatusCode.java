@@ -1,0 +1,25 @@
+package com.jhs.http;
+
+public enum HttpStatusCode {
+
+        /*Client errors */
+        CLIENT_ERROR_BAD_REQUEST(400, "Bad Request"),
+        CLIENT_ERROR_UNAUTHORIZED(401, "Unauthorized"),
+        CLIENT_ERROR_URI_TOO_LONG(414, "URI Too Long"),
+        
+        /*Server errors */
+        SERVER_ERROR_INTERNAL(500, "Internal Server Error"),
+        SERVER_ERROR_NOT_IMPLEMENTED(501, "Not Implemented"),
+    ;
+
+    public final int _STATUS_CODE;
+    public final String _MESSAGE;
+
+    HttpStatusCode(int _STATUS_CODE, String _MESSAGE) {
+        this._STATUS_CODE = _STATUS_CODE;
+        this._MESSAGE = _MESSAGE;
+    }
+
+    
+}
+

@@ -12,4 +12,4 @@ echo "Copying dependencies to target/dependency..."
 mvn -q dependency:copy-dependencies -DoutputDirectory=target/dependency
 
 echo "Starting HttpServer..."
-java -cp "target/classes:target/dependency/*" com.jhs.http.HttpServer
+java -cp "target/classes:target/dependency/*" com.jhs.httpserver.HttpServer

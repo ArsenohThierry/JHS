@@ -11,6 +11,7 @@
 Comment?:
     -Ecrire les Configs en json:
         -Utilisation de Jackson pour transformer les Json en POJO (JSON -> classe Java)
+        (ConfigurationManager.java, Configuration.java, HttpConfigurationException.java, Json.java)
  
 
 
@@ -50,6 +51,7 @@ Pour faire fonctionner le Serveur :
 
     Mais on va gerer les socket dans un thread pour un meilleur gestion du projet 
     et gerer le multi-threading (accepter plusieurs connexions )
+    (HttpServer.java, ServerListenerThread.java, HttpConnectionWorkerThread.java)
 
 PART 4 : multi-thrading
     -Creation du package core et de la classe ServerListenerThread pour gerer le multithreading : 
@@ -60,6 +62,7 @@ PART 4 : multi-thrading
     Ajout d une autre dependance (sl4j) pour la journalisation : (erreurs, succes bref logs) por remplacer sout
 
     Maintenant gestion De plusieurs connexions enmeme temps :MULTI-THREADING
+    (ServerListenerThread.java, HttpConnectionWorkerThread.java)
 
     -ajout d'une boucle while pour ne pas arreter l ecoute :
     MAIS : meme si le programme ne finit pas , le serveur n' accepte qu' une requete a la fois (pas du tout optimal)
@@ -76,6 +79,8 @@ PART 4 : multi-thrading
 
 
     Partie 5 : implementation du protocole http
+
+    (HttpParser.java, HttpRequest.java, HttpMessage.java, HttpMethod.java, HttpStatusCode.java, HttpParsingException.java)
 
     Le protocole http est defini par des RFC deja implementes par le createur des http protocol , html ,... Documentaion necessaire ,...
     Mais on utilisera que RFC7230 : HTTP/1.1 (Message syntax and routing)
@@ -202,5 +207,42 @@ Maintenant on a besoin de parser ces messages pour pouvoir les comprendre et les
     --->
     Ajout d'une nouvelle dependance : JUnit pour les tests unitaires : 
         -Creation de HttpParserTest.java : test JUnit pour tester le parser avec la requete exemple (request.txt)
+        (HttpParserTest.java)
 
 Partie 6 :
+
+Maintenant on va parser les requetes http et les traiter : 
+    -parser les headers ,
+    -parser le body (si present)
+    -gerer les differentes methodes (GET, POST, etc.)
+NB: On n utilise pas directement le inputstream on va utiliser InputStreamHandler
+    
+    <!-- -Creation de HttpRequestHandler.java : classe pour traiter les requetes http (GET, POST, etc.) et retourner les reponses appropriées (pages, codes d erreur, etc.)
+    -Modification de HttpConnectionWorkerThread.java : pour utiliser HttpRequestHandler pour traiter les requetes et retourner les reponses -->
+
+REGLES GENERALES pour les headers en http : 
+    -Les headers sont case-insensitive (ex: Content-Type et content-type sont equivalents)
+    -Les methodes GET et HEAD doivent imperativent etre implementées (si une methode n est pas reconnue , le serveur doit repondre par un code 501 Not Implemented)
+    -Si la methode est reconnue mais non autorisée pour la ressource demandée , le serveur doit repondre par un code 405 Method Not Allowed
+    -Le body est optionnel (ex: une requete GET n a pas de body, alors qu une requete POST peut en avoir un)
+    -La separation entre les headers et le body se fait via un saut de ligne special (CRLF) : \r\n\r\n
+
+
+    -Request Line : 
+        -les requetes invalides doivent etre traitees avec un code d erreur 400 Bad Request ou 301 Moved Permanently (si la ressource a ete deplacee)
+        -Si la requete est tres longue (ex: un header tres long) , le serveur doit repondre par un code 501 not implemented ou 414 Request-URI Too Long si c'est plus long qu nn URI
+        -Reccommande que les envoyers et recipients supportent des lignes de requete d au moins 8000 octets (8KB) pour eviter les erreurs de requetes trop longues
+
+COMMENT ?:
+-Pour le header : 
+Utilisation du table ASCI pour parser les headers : 
+    -Space = 20
+    -CR = 13
+    -LF = 10
+
+(HttpParser.java)
+Maintenant on va parcourir les headers pour cherches ces bytes correspondants    
+
+
+Partie 7:
+Suite des

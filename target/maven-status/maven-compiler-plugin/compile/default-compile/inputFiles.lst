@@ -1,8 +1,13 @@
-/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/config/HttpConfigurationException.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/core/ServerListenerThread.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/core/HttpConnectionWorkerThread.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpParser.java
-/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/HttpServer.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpRequest.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/config/Configuration.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpStatusCode.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/config/HttpConfigurationException.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/HttpServer.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpMessage.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/utils/Json.java
 /home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/httpserver/config/ConfigurationManager.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpParsingException.java
+/home/rooot/Bureau/HTTP_Server/src/main/java/com/jhs/http/HttpMethod.java
