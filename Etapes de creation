@@ -11,3 +11,18 @@
 Comment?:
     -Ecrire les Configs en json:
         -Utilisation de Jackson pour transformer les Json en POJO (JSON -> classe Java)
+ 
+
+
+ 
+    Classes existantes :
+
+    - `com.jhs.http.HttpServer` : programme principal (driver) du serveur HTTP. Démarre le serveur et charge la configuration via `ConfigurationManager`.
+
+    - `com.jhs.http.config.ConfigurationManager` : singleton chargé de lire le fichier JSON de configuration (`src/main/resources/http.json`), de le parser avec l'utilitaire `Json` et de fournir l'objet `Configuration` courant.
+
+    - `com.jhs.http.config.Configuration` : POJO de configuration contenant les paramètres essentiels (ex. `port`, `webRoot`). Utilisé comme cible de désérialisation JSON.
+
+    - `com.jhs.http.config.HttpConfigurationException` : exception runtime spécifique aux erreurs de configuration (fichier manquant, parsing, etc.).
+
+    - `com.jhs.http.utils.Json` : utilitaire central pour la sérialisation/désérialisation JSON (basé sur Jackson). Fournit `parse`, `fromJson`, `toJson` et des méthodes de formattage (`stringifier`, `stringifierMeilleur`).
