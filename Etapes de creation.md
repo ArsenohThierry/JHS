@@ -60,3 +60,6 @@ PART 4 : multi-thrading
     Ajout d une autre dependance (sl4j) pour la journalisation : (erreurs, succes bref logs) por remplacer sout
 
     Maintenant gestion De plusieurs connexions enmeme temps :MULTI-THREADING
+
+    -ajout d'une boucle while pour ne pas arreter l ecoute :
+    MAIS : meme si le programme ne finit pas , le serveur n' accepte qu' une requete a la fois (pas du tout optimal)

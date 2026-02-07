@@ -26,7 +26,7 @@ public class ServerListenerThread extends Thread{
     public void run(){
         try {
 
-            
+            while(serverSocket.isBound() && !serverSocket.isClosed()) {
             Socket socket = serverSocket.accept();
 
             LOGGER.info("Nouvelle connexion entrante : " + socket.getInetAddress().getHostAddress());
@@ -53,7 +53,8 @@ public class ServerListenerThread extends Thread{
             inputStream.close();
             outputStream.close();
             socket.close();
-            serverSocket.close();
+            }
+            //serverSocket.close();
             
         } catch (IOException e) {
             
