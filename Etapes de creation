@@ -9,4 +9,5 @@
     -Fermer les connexions après le traitement des requetes
 
 Comment?:
-    -Ecrire les Configs en json
+    -Ecrire les Configs en json:
+        -Utilisation de Jackson pour transformer les Json en POJO (JSON -> classe Java)
