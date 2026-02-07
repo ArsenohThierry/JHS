@@ -42,6 +42,32 @@ public class HttpParserTest {
 
     }
 
+    @Test
+    public void testParseBadLongMethod() {
+        HttpRequest httpRequest = null;
+        try {
+            httpRequest = httpParser.parseHttpRequest(generatebadtestCaseMethodLength());
+            fail();
+        } catch (HttpParsingException e) {
+            assertEquals(e.getErrorCode(), HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
+        }
+
+    } 
+
+    @Test
+    public void testParseBadLongRequest() {
+        HttpRequest httpRequest = null;
+        try {
+            httpRequest = httpParser.parseHttpRequest(generatebadtestCaseRequestLength());
+            fail();
+        } catch (HttpParsingException e) {
+            assertEquals(e.getErrorCode(), HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+        }
+
+    } 
+
+
+
     private InputStream generateValidGETtestCase() {
         String rawData = "GET / HTTP/1.1\r\n" + //
                 "Host: localhost:8080\r\n" + //
@@ -72,6 +98,28 @@ public class HttpParserTest {
 
     private InputStream generatebadtestCaseMethodName() {
         String rawData = "GeT / HTTP/1.1\r\n" + //
+                "Host: localhost:8080\r\n" + //
+                "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
+                "\r\n\r\n";
+        InputStream inputStream = new ByteArrayInputStream(
+                rawData.getBytes(
+                        StandardCharsets.US_ASCII));
+        return inputStream;
+    }
+
+    private InputStream generatebadtestCaseMethodLength() {
+        String rawData = "GETTTTTTT / HTTP/1.1\r\n" + //
+                "Host: localhost:8080\r\n" + //
+                "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
+                "\r\n\r\n";
+        InputStream inputStream = new ByteArrayInputStream(
+                rawData.getBytes(
+                        StandardCharsets.US_ASCII));
+        return inputStream;
+    }
+
+    private InputStream generatebadtestCaseRequestLength() {
+        String rawData = "GET / AAAAA HTTP/1.1\r\n" + //
                 "Host: localhost:8080\r\n" + //
                 "Accept-Language: fr-FR,fr;q=0.5\r\n" + //
                 "\r\n\r\n";

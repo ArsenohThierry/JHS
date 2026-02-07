@@ -59,6 +59,11 @@ public class HttpParser {
                     LOGGER.debug("Request line REQUEST TARGET parsed: {}", processingdataBuffer.toString());
                     requestTargetParsed = true;
                 }
+                else {
+                    throw new HttpParsingException(
+                        HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST
+                    );
+                }
                 processingdataBuffer.delete(0, processingdataBuffer.length());
             }
             else {
