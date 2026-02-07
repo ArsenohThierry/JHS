@@ -41,7 +41,15 @@ Pour faire fonctionner le Serveur :
     1.1- Utilisation de ServerSocket : pour pouvoir ecouter a un port specifique, ouvrir le port (serverSocket.accept();) et le passer a un socket
     Si aucune connexion ne st etablie socket.accept ne s'execute pas et attend une connexion 
 
-    Pour envoyer une page par exemple : 
+    Pour envoyer une page par exemple :
+
     String html = "<html><title>Simple http page</title><body><h1>Bonjour, Monde!</h1></body></html>";
+
     au navigateur , le navigateur ne saura pas quoi en faire du coup il faut trouver un moyen de dire au navigateur de l encoder dans un certain format : 
-    => l40-
+    => l40- 55 
+
+    Mais on va gerer les socket dans un thread pour un meilleur gestion du projet 
+    et gerer le multi-threading (accepter plusieurs connexions )
+
+PART 4 : multi-thrading
+    -Creation du package core pour gerer les threads
