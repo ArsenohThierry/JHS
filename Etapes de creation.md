@@ -52,4 +52,11 @@ Pour faire fonctionner le Serveur :
     et gerer le multi-threading (accepter plusieurs connexions )
 
 PART 4 : multi-thrading
-    -Creation du package core pour gerer les threads
+    -Creation du package core et de la classe ServerListenerThread pour gerer le multithreading : 
+    On fera en sorte que le serveur puisses ecouter sur plusieurs ports et avoir plusieurs webroot (dossiers)
+
+    J'ai deplace la fonction de demarrage du serveur (qui ecoute sur 1 port) dans la nouvelle classe et implemente la fonction run() du thread pour demarrer le serveur (tjrs mono-thread pour l instant)
+
+    Ajout d une autre dependance (sl4j) pour la journalisation : (erreurs, succes bref logs) por remplacer sout
+
+    Maintenant gestion De plusieurs connexions enmeme temps :MULTI-THREADING
