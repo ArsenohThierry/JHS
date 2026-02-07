@@ -12,7 +12,7 @@ public class HttpConnectionWorkerThread extends Thread {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(ServerListenerThread.class);
 
-    private Socket socket;
+    private final Socket socket;
 
     public HttpConnectionWorkerThread(Socket socket) {
         this.socket = socket;
@@ -26,10 +26,6 @@ public class HttpConnectionWorkerThread extends Thread {
             inputStream = this.socket.getInputStream();
             outputStream = this.socket.getOutputStream();
 
-            int _byte;
-            while ((_byte = inputStream.read()) >= 0) {
-                System.out.print((char) _byte);
-            }
             // TODO Lecture de la requete HTTP et generation de la reponse HTTP
 
             // TODO Ecriture de la reponse HTTP dans le outputStream

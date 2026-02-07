@@ -141,4 +141,64 @@ cela permet de détecter rapidement les requêtes mal formées ou malveillantes 
 
 Il termine cette plage en préparant le terrain pour la suite : il crée un package http, une classe HttpParser et une méthode parseHttpRequest(InputStream), puis met en place un test JUnit pour tester le parser avec la requête exemple.​
 
-Si tu veux, je peux te détailler ligne par ligne ce que fait le code entre 6:30 et 7:14 (création de la classe, du test, du ByteArrayInputStream, etc.).
+
+
+  ______________
+ | HTTP Message | :
+ ‾‾‾‾‾‾‾‾‾‾‾‾‾‾
+ ┌─────────────┐
+ │ START-LINE  │   ----
+ └─────────────┘       | 
+        |              |
+        v              |
+ ┌─────────────┐       |
+ │ HEADER-FIELD│   -----
+ └─────────────┘       |
+        +              |
+                       |
+        |              |
+        v              | 
+    ┌──────┐           |
+    │ CRLF │           |
+    └──────┘           |
+        |              |
+        v              |
+    ┌──────┐           |
+    │ CRLF │-----------|
+    └──────┘           |
+        |              |
+        v              |
+ ┌─────────────┐       |
+ │ MESSAGE-BODY│-------|
+ └─────────────┘       |
+        |              |
+        v              |
+ ┌─────────────┐       |
+ │ END         |-------|
+ └─────────────┘
+
+ -Start line : Peux contenir :
+                -Ligne de requetes, (request lines) : // method _espace_ request-target _espace_ HTTP-version CRLF \\ Methode: token , methodes qui fonctionnent : GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS, TRACE , PATCH
+                -Ligne de status    (status lines)
+
+Maintenant on a besoin de parser ces messages pour pouvoir les comprendre et les traiter : 
+    <!-- -Creation de HttpParser.java : 
+    -Creation de la methode parseHttpRequest(InputStream) : qui va parser la requete http et retourner un objet HttpRequest (classe a creer) qui va representer la requete http de maniere structurée (avec des champs pour la methode, le path, les headers, etc.)
+    -Creation de HttpRequest.java : POJO pour representer une requete http avec des champs pour la methode, le path, les headers, etc.
+    -Creation de HttpParserTest.java : test JUnit pour tester le parser avec la requete exemple (request.txt)                 -->
+
+    Methodes de parsing : 1 - Lexer (Tokenizer) + parser :
+                        -On lit tout le flux d un coup , on le tokenize (decoupage en tokens) puis on parse les tokens pour construire l objet HttpRequest
+                        -Avantage : plus rapide pour les requetes bien formées
+                        -Inconvenient : plus lent pour les requetes mal formées ou malveillantes (car on doit lire tout le flux avant de detecter l erreur)
+
+                        2- Lexerless pareser (Scannerless parser) :
+                        -On lit les caracteres un par un et on parse au fur et a mesure
+                        -Avantage : plus rapide pour les requetes mal formées ou malveillantes (car on peut detecter l erreur rapidement et fermer la connexion)
+                        -Inconvenient : plus lent pour les requetes bien formées (car on doit lire les caracteres un par un 
+
+Par convention , on utilise la methode 2 : lexerless parser (scannerless parser) pour pouvoir detecter rapidement les requetes mal formées ou malveillantes et fermer la connexion si besoin
+
+--->
+Ajout d'une nouvelle dependance : JUnit pour les tests unitaires : 
+    -Creation de HttpParserTest.java : test JUnit pour tester le parser avec la requete exemple (request.txt)

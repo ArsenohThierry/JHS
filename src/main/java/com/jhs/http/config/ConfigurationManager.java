@@ -33,13 +33,23 @@ public class ConfigurationManager {
      * http.json
      */
     public void loadConfiguration(String filePath) {
-        FileReader filereader;
+        FileReader filereader = null;
         try {
             filereader = new FileReader(filePath);
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             throw new HttpConfigurationException("Fichier de configuration introuvable : " + filePath, e);
         }
+        finally{
+            if (filereader != null) {
+                try {
+                    filereader.close();
+                } catch (IOException e) {
+                    throw new HttpConfigurationException("Erreur lors de la fermeture du fichier de configuration", e);
+                }
+            }
+        }
+        
         StringBuilder stringbuilder = new StringBuilder();
         int i = 0;
         try {
