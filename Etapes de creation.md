@@ -262,4 +262,5 @@ Suite des paring des headers :
 
 
 -Gerer les cas Pour des mauvais/incorrects requetes HTTP: 
+(TENA LAVA LOTRA NEFA VO METHODE 1 ZAY (GET))
 dans HttpParserTest.java
