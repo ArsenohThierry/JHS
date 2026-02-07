@@ -1,0 +1,12 @@
+-Requis : 
+    -Read Configuration file
+    -Ouvrir un socket sur le port spécifié (peut gerer le multi-threading)
+    -Lire les requetes HTTP entrantes
+    -Traiter les requetes (GET, POST, etc.)
+    -Ouvrir les fichiers demandés et les envoyer en réponse
+    -Ecrire les responses HTTP appropriées (headers, status codes, etc.)
+    -Gérer les erreurs (404, 500, etc.)
+    -Fermer les connexions après le traitement des requetes
+
+Comment?:
+    -Ecrire les Configs en json

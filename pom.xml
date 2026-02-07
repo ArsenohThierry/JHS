@@ -30,4 +30,8 @@
         </plugins>
     </build>
 
+    <dependencies>
+        
+
+    </dependencies>
 </project>
