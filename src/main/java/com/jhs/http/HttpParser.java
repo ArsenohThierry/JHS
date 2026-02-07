@@ -20,9 +20,14 @@ public class HttpParser {
 
         HttpRequest httpRequest = new HttpRequest();
 
-    parseRequestLine(reader,httpRequest);
-    parseHeaders(reader,httpRequest);
-    parseBody(reader,httpRequest);
+    try {
+        parseRequestLine(reader,httpRequest);
+    } catch (IOException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    // parseHeaders(reader,httpRequest);
+    // parseBody(reader,httpRequest);
 
     return httpRequest;
     }
@@ -35,12 +40,17 @@ public class HttpParser {
             if (_byte == CR) {
                 _byte = reader.read();
                 if (_byte == LF) {
+                    LOGGER.debug("Request line parsed: {}", processingdataBuffer.toString());
+                    
                     return;
                 }
             }
 
             if (_byte == SP) {
                 // TODO process previous data
+            }
+            else {
+                processingdataBuffer.append((char)_byte);
             }
         }
         

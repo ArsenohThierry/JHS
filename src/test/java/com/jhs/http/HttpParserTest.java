@@ -4,16 +4,14 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HttpParserTest {
     private HttpParser httpParser;
 
-    @BeforeAll
-    public void beforeClass(){
+    @BeforeEach
+    public void beforeEach(){
         httpParser = new HttpParser();
     }
 
