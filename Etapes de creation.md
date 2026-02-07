@@ -245,4 +245,11 @@ Maintenant on va parcourir les headers pour cherches ces bytes correspondants
 
 
 Partie 7:
-Suite des
+Suite des paring des headers : 
+    -Parser les headers : on va parcourir les headers pour cherches ces bytes correspondants (space, CR, LF) pour pouvoir parser les headers et les stocker dans une map (key: header name, value: header value)
+    -Parser le body (si present) : on va lire le body apres la separation CRLF CRLF et le stocker dans une string ou un byte array (en fonction du content-type)
+    -Gerer les differentes methodes (GET, POST, etc.) : on va utiliser un switch case pour gerer les differentes methodes et retourner les reponses appropriees (pages, codes d erreur, etc.)
+
+
+-Gerer les cas Pour des mauvais/incorrects requetes HTTP: 
+dans HttpParserTest.java
