@@ -14,7 +14,7 @@ Comment?:
  
 
 
- 
+
     Classes existantes :
 
     - `com.jhs.http.HttpServer` : programme principal (driver) du serveur HTTP. Démarre le serveur et charge la configuration via `ConfigurationManager`.
@@ -26,3 +26,22 @@ Comment?:
     - `com.jhs.http.config.HttpConfigurationException` : exception runtime spécifique aux erreurs de configuration (fichier manquant, parsing, etc.).
 
     - `com.jhs.http.utils.Json` : utilitaire central pour la sérialisation/désérialisation JSON (basé sur Jackson). Fournit `parse`, `fromJson`, `toJson` et des méthodes de formattage (`stringifier`, `stringifierMeilleur`).
+
+
+Pour faire fonctionner le Serveur :
+    1- Capable de handle les connexions TCP (pour envoyer les pages aux clients )
+    2- Comprendre le protocole HTTP
+
+1 - TCP connections :
+    Etapes : 
+    1- : Seulement 1 connectoin a la fois (mono-threading)
+    2- Pas encore de protocole http implemente 
+    3- Toujours encoder en HTML pour l instant : (php plus tard)
+
+    1.1- Utilisation de ServerSocket : pour pouvoir ecouter a un port specifique, ouvrir le port (serverSocket.accept();) et le passer a un socket
+    Si aucune connexion ne st etablie socket.accept ne s'execute pas et attend une connexion 
+
+    Pour envoyer une page par exemple : 
+    String html = "<html><title>Simple http page</title><body><h1>Bonjour, Monde!</h1></body></html>";
+    au navigateur , le navigateur ne saura pas quoi en faire du coup il faut trouver un moyen de dire au navigateur de l encoder dans un certain format : 
+    => l40-
