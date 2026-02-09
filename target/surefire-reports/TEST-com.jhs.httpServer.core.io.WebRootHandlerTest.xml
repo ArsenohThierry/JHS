@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.jhs.http.HttpParserTest" time="0.043" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.069" tests="18" errors="0" skipped="0" failures="3">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,13 +53,40 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testParseBadLongRequest" classname="com.jhs.http.HttpParserTest" time="0.013"/>
-  <testcase name="testParseUnsupportedHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadEmptyRequest" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseSupportedHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.009"/>
-  <testcase name="testParseBadLongMethod" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseHttpRequest" classname="com.jhs.http.HttpParserTest" time="0.006"/>
-  <testcase name="testParseBadRequestOnlyCRnoLF" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadHttpRequest" classname="com.jhs.http.HttpParserTest" time="0.001"/>
+  <testcase name="testWebRootFilePathExists" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.019"/>
+  <testcase name="checkIfEndsWithSlashMethodTrue" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0"/>
+  <testcase name="checkIfEndsWithSlashMethodFalse2" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="checkIfEndsWithSlashMethodFalse3" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="constructorGoodPath2" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="testGetFileByteArrayData" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.005"/>
+  <testcase name="testGetFileMimeTypePng" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.006">
+    <failure type="org.opentest4j.AssertionFailedError:">org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypePng(WebRootHandlerTest.java:198)
+Caused by: java.io.FileNotFoundException: /logo.png
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypePng(WebRootHandlerTest.java:195)
+</failure>
+  </testcase>
+  <testcase name="testWebRootFilePathExistsGoodRelative" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0"/>
+  <testcase name="checkIfEndsWithSlashMethodFalse" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="checkIfEndsWithSlashMethodTrue2" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="constructorGoodPath" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001">
+    <failure type="org.opentest4j.AssertionFailedError:">org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.constructorGoodPath(WebRootHandlerTest.java:43)
+Caused by: com.jhs.httpserver.core.io.WebrootNotFoundException: Le chemin du webroot spécifié est invalide : E:\Projects\CoderFromScratch\simple-java-http-server\WebRoot
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.constructorGoodPath(WebRootHandlerTest.java:41)
+</failure>
+  </testcase>
+  <testcase name="constructorBadPath2" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="testGetFileMimeTypeDefault" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001">
+    <failure type="org.opentest4j.AssertionFailedError:">org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypeDefault(WebRootHandlerTest.java:208)
+Caused by: java.io.FileNotFoundException: /favicon.ico
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypeDefault(WebRootHandlerTest.java:205)
+</failure>
+  </testcase>
+  <testcase name="testGetFileMimeTypeText" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="testWebRootFilePathExistsInvalid" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0"/>
+  <testcase name="testGetFileByteArrayDataFileNotThere" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="testWebRootFilePathExistsDoesNotExist" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0.001"/>
+  <testcase name="constructorBadPath" classname="com.jhs.httpServer.core.io.WebRootHandlerTest" time="0"/>
 </testsuite>

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: com.jhs.http.HttpParserTest
+Test set: com.jhs.http.HttpVersionTest
 -------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 s - in com.jhs.http.HttpParserTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0 s - in com.jhs.http.HttpVersionTest

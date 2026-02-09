@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.jhs.http.HttpParserTest" time="0.043" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.jhs.http.HttpVersionTest" time="0" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,13 +53,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="testParseBadLongRequest" classname="com.jhs.http.HttpParserTest" time="0.013"/>
-  <testcase name="testParseUnsupportedHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadEmptyRequest" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseSupportedHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.009"/>
-  <testcase name="testParseBadLongMethod" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadHttpVersion" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseHttpRequest" classname="com.jhs.http.HttpParserTest" time="0.006"/>
-  <testcase name="testParseBadRequestOnlyCRnoLF" classname="com.jhs.http.HttpParserTest" time="0.001"/>
-  <testcase name="testParseBadHttpRequest" classname="com.jhs.http.HttpParserTest" time="0.001"/>
+  <testcase name="getBestCompatibleVersionExactMatch" classname="com.jhs.http.HttpVersionTest" time="0"/>
+  <testcase name="getBestCompatibleVersionBadFormat" classname="com.jhs.http.HttpVersionTest" time="0"/>
+  <testcase name="getBestCompatibleVersionHigherVersion" classname="com.jhs.http.HttpVersionTest" time="0"/>
 </testsuite>

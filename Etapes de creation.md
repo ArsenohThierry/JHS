@@ -264,3 +264,35 @@ Suite des paring des headers :
 -Gerer les cas Pour des mauvais/incorrects requetes HTTP: 
 (TENA LAVA LOTRA NEFA VO METHODE 1 ZAY (GET))
 dans HttpParserTest.java
+
+
+Part 8 :
+
+Maintenant que le parsing est presque fini : 
+    -Nous avons trouve le Request target mais on ne l' a pas encore assigne a la requete 
+
+    creation de la methode setRequestTarget(String) dans HttpRequest.java pour assigner le request target a la requete (HttpRequest.java)
+
+    -Ensuite la version de la requete :
+    Plus complexe car la structuree des verion sont une peu complexe
+        Forme : HTTP / DIGIT . DIGIT (2 NOMBRES SEPARES PAR UN POINT)
+        Ex: HTTP/1.1
+    Un serveur peut retourner un code d erreur 505 HTTP Version Not Supported si la version n est pas supportee ou reconnue
+
+
+-PASRING DE LA VERSION HTTP : (Lava be ):
+    -Creation de HttpVersion.java : classe pour representer la version HTTP d une requete (ex: HTTP/1.1)
+    -Creation de la methode getBestCompatibleVersion(String) dans HttpVersion.java : pour parser la version HTTP a partir de la request line et retourner un objet HttpVersion representant la version de la requete
+    -Modification de HttpParser.java : pour utiliser HttpVersion.getBestCompatibleVersion() pour parser la version HTTP de la requete et l assigner a l objet HttpRequest
+
+Partie 9 :
+Maintenant que le parsing du start line est fini : on va parser les headers 
+
+
+Apres les methodes de parsing du headers : 
+    -Creation de la methode parseHeaders(InputStreamReader, HttpRequest) dans HttpParser.java : pour parser les headers de la requete et les stocker dans l objet HttpRequest
+    -Modification de HttpParserTest.java : pour tester le parsing des headers avec une requete exemple contenant des headers (request_with_headers.txt)
+
+Mise en place d'une structure pour stocker les headers dans HttpRequest.java : 
+    -Creation d une map (HashMap) pour stocker les headers (key: header name, value: header value)
+    -Creation de la methode addHeader(String name, String value) dans HttpRequest.java pour ajouter un header a la requete    

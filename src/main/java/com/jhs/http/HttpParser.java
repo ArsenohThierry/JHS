@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +28,11 @@ public class HttpParser {
         // TODO Auto-generated catch block
         e.printStackTrace();
     }
-    // parseHeaders(reader,httpRequest);
+    try {
+        parseHeaders(reader, httpRequest);
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
     // parseBody(reader,httpRequest);
 
     return httpRequest;
@@ -45,11 +51,19 @@ public class HttpParser {
                 if (_byte == LF) {
                     LOGGER.debug("Request VERSION parsed: {}", processingdataBuffer.toString());
                     if(!methodParsed || !requestTargetParsed){
-                        throw new HttpParsingException(
-                            HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST
-                        );
+                        throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
                     }
+
+                    try {
+                        httpRequest.setHttpVersion(processingdataBuffer.toString());
+                    } catch (BadHttpVersionException e) {
+                        throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+                    }
+
                     return;
+                }
+                else {
+                    throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
                 }
             }
 
@@ -62,12 +76,11 @@ public class HttpParser {
 
                 else if (!requestTargetParsed) {
                     LOGGER.debug("Request line REQUEST TARGET parsed: {}", processingdataBuffer.toString());
+                    httpRequest.setRequestTarget(processingdataBuffer.toString());
                     requestTargetParsed = true;
                 }
                 else {
-                    throw new HttpParsingException(
-                        HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST
-                    );
+                    throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
                 }
                 processingdataBuffer.delete(0, processingdataBuffer.length());
             }
@@ -75,9 +88,7 @@ public class HttpParser {
                 processingdataBuffer.append((char)_byte);
                 if (!methodParsed) {
                     if (processingdataBuffer.length() > HttpMethod.MAX_LENGTH) {
-                        throw new HttpParsingException(
-                            HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED
-                        ); 
+                        throw new HttpParsingException(HttpStatusCode.SERVER_ERROR_501_NOT_IMPLEMENTED);
                     }
                 }
             }
@@ -85,11 +96,64 @@ public class HttpParser {
         
     }
 
-    private void parseHeaders(InputStreamReader reader, HttpRequest httpRequest) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    private void parseHeaders(InputStreamReader reader, HttpRequest request) throws IOException, HttpParsingException {
+        StringBuilder processingDataBuffer = new StringBuilder();
+        boolean lineEndPreviouslySeen = false; // indicates previous CRLF or LF seen
+
+        int _byte;
+        while ((_byte = reader.read()) >= 0) {
+            if (_byte == CR) {
+                int next = reader.read();
+                if (next == LF) {
+                    if (!lineEndPreviouslySeen) {
+                        // process header line
+                        processSingleHeaderField(processingDataBuffer, request);
+                        processingDataBuffer.setLength(0);
+                        lineEndPreviouslySeen = true;
+                    } else {
+                        // double CRLF -> end of headers
+                        return;
+                    }
+                } else {
+                    throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+                }
+            } else if (_byte == LF) {
+                // accept lone LF as line terminator (tolerant parsing)
+                if (!lineEndPreviouslySeen) {
+                    processSingleHeaderField(processingDataBuffer, request);
+                    processingDataBuffer.setLength(0);
+                    lineEndPreviouslySeen = true;
+                } else {
+                    return;
+                }
+            } else {
+                lineEndPreviouslySeen = false;
+                processingDataBuffer.append((char) _byte);
+            }
+        }
+
+        // EOF reached: if there's leftover data, try to process it as a header line
+        if (processingDataBuffer.length() > 0) {
+            processSingleHeaderField(processingDataBuffer, request);
+        }
+    }
+
+    private void processSingleHeaderField(StringBuilder processingDataBuffer, HttpRequest request) throws HttpParsingException {
+        String rawHeaderField = processingDataBuffer.toString();
+        Pattern pattern = Pattern.compile("^(?<fieldName>[!#$%&’*+\\-./^_‘|˜\\dA-Za-z]+):\\s?(?<fieldValue>[!#$%&’*+\\-./^_‘|˜(),:;<=>?@[\\\\]{}\" \\dA-Za-z]+)\\s?$");
+
+        Matcher matcher = pattern.matcher(rawHeaderField);
+        if (matcher.matches()) {
+            // We found a proper header
+            String fieldName = matcher.group("fieldName");
+            String fieldValue = matcher.group("fieldValue");
+            request.addHeader(fieldName, fieldValue);
+        } else{
+            throw new HttpParsingException(HttpStatusCode.CLIENT_ERROR_400_BAD_REQUEST);
+        }
     }
 
     private void parseBody(InputStreamReader reader, HttpRequest httpRequest) {
-        throw new UnsupportedOperationException("Not supported yet.");
+            // TODO : parse body if Content-Length or Transfer-Encoding headers are present
     }
 }

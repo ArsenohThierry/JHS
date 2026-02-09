@@ -1,0 +1,22 @@
+-------------------------------------------------------------------------------
+Test set: com.jhs.httpServer.core.io.WebRootHandlerTest
+-------------------------------------------------------------------------------
+Tests run: 18, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 0.069 s <<< FAILURE! - in com.jhs.httpServer.core.io.WebRootHandlerTest
+testGetFileMimeTypePng  Time elapsed: 0.006 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypePng(WebRootHandlerTest.java:198)
+Caused by: java.io.FileNotFoundException: /logo.png
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypePng(WebRootHandlerTest.java:195)
+
+constructorGoodPath  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.constructorGoodPath(WebRootHandlerTest.java:43)
+Caused by: com.jhs.httpserver.core.io.WebrootNotFoundException: Le chemin du webroot spécifié est invalide : E:\Projects\CoderFromScratch\simple-java-http-server\WebRoot
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.constructorGoodPath(WebRootHandlerTest.java:41)
+
+testGetFileMimeTypeDefault  Time elapsed: 0.001 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: 
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypeDefault(WebRootHandlerTest.java:208)
+Caused by: java.io.FileNotFoundException: /favicon.ico
+	at com.jhs.httpServer.core.io.WebRootHandlerTest.testGetFileMimeTypeDefault(WebRootHandlerTest.java:205)
+

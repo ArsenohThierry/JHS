@@ -1,8 +1,15 @@
+com/jhs/http/BadHttpVersionException.class
+com/jhs/http/HttpMethod.class
+com/jhs/http/HttpMessage.class
 com/jhs/httpserver/core/ServerListenerThread.class
 com/jhs/http/HttpParser.class
 com/jhs/httpserver/utils/Json.class
 com/jhs/httpserver/config/ConfigurationManager.class
+com/jhs/http/HttpVersion.class
 com/jhs/httpserver/core/HttpConnectionWorkerThread.class
+com/jhs/http/HttpStatusCode.class
 com/jhs/httpserver/config/Configuration.class
+com/jhs/http/HttpParsingException.class
+com/jhs/http/HttpRequest.class
 com/jhs/httpserver/config/HttpConfigurationException.class
 com/jhs/httpserver/HttpServer.class

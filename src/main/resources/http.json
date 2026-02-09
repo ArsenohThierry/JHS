@@ -1,4 +1,4 @@
 {
   "port": 8080,
-  "webRoot": "www"
+  "webRoot": "/home/rooot/Bureau/HTTP_Server/WebRoot"
 }

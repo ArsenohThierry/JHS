@@ -1,1 +1,4 @@
 /home/rooot/Bureau/HTTP_Server/src/test/java/com/jhs/http/HttpParserTest.java
+/home/rooot/Bureau/HTTP_Server/src/test/java/com/jhs/http/HttpVersionTest.java
+/home/rooot/Bureau/HTTP_Server/src/test/java/com/jhs/http/HttpHeaderParserTest.java
+/home/rooot/Bureau/HTTP_Server/src/test/java/com/jhs/httpServer/core/io/WebRootHandlerTest.java
